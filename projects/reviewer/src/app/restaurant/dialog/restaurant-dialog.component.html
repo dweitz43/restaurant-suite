@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{deleting ? 'Delete' : restaurant?.id ? 'Edit' : 'Create'}} Restaurant</h1>
+<mat-dialog-content>
+  <p *ngIf="deleting">Are you sure you want to delete {{restaurant.name}}?</p>
+  <form [formGroup]="form" *ngIf="!deleting">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name" (keyup.enter)="form.controls.name.valid && save()">
+      <mat-error *ngIf="form.controls.name.invalid">Name is required.</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="close()">{{deleting ? 'NO' : 'CANCEL'}}</button>
+  <button mat-raised-button
+          [disabled]="saving || !deleting && (form?.invalid || form?.controls.name.value === restaurant?.name)"
+          [color]="deleting ? 'warn' : 'primary'"
+          (click)="save()">
+    {{deleting ? 'YES' : 'SAVE'}}
+  </button>
+</mat-dialog-actions>

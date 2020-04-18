@@ -1,0 +1,13 @@
+<mat-list-item [style.opacity]="loaded ? 1 : 0.5">
+  <mat-chip-list>
+    <mat-chip color="primary" selected>{{user?.role.toUpperCase()}}</mat-chip>
+  </mat-chip-list>
+  <div matLine>{{user?.displayName}}</div>
+  <div matLine>{{user?.email}}</div>
+  <span class="fabs">
+      <button *ngIf="!isHandset" mat-raised-button color="accent" (click)="buttonClick.emit(false)">EDIT</button>
+      <button *ngIf="isHandset" mat-mini-fab matTooltip="Edit User" color="accent" (click)="buttonClick.emit(false)"><mat-icon>edit</mat-icon></button>
+      <button *ngIf="isAdmin && isHandset" mat-mini-fab matTooltip="Delete User" color="warn" (click)="buttonClick.emit(true)"><mat-icon>clear</mat-icon></button>
+      <button *ngIf="isAdmin && !isHandset" mat-raised-button color="warn" (click)="buttonClick.emit(true)">DELETE</button>
+    </span>
+</mat-list-item>

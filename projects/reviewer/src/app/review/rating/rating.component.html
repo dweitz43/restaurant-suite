@@ -1,0 +1,9 @@
+<div class="stars" [class.selectable]="editingRating >= 0">
+  <mat-icon [color]="color || (editingRating >= 0 ? 'primary' : 'accent')" (click)="selectRating(1)">{{rating < 1 ? 'star_outline' : 'star'}}</mat-icon>
+  <mat-icon [color]="color || (editingRating >= 0 ? 'primary' : 'accent')" (click)="selectRating(2)">{{rating < 2 ? 'star_outline' : 'star'}}</mat-icon>
+  <mat-icon [color]="color || (editingRating >= 0 ? 'primary' : 'accent')" (click)="selectRating(3)">{{rating < 3 ? 'star_outline' : 'star'}}</mat-icon>
+  <mat-icon [color]="color || (editingRating >= 0 ? 'primary' : 'accent')" (click)="selectRating(4)">{{rating < 4 ? 'star_outline' : 'star'}}</mat-icon>
+  <mat-icon [color]="color || (editingRating >= 0 ? 'primary' : 'accent')" (click)="selectRating(5)">{{rating < 5 ? 'star_outline' : 'star'}}</mat-icon>
+  <button *ngIf="editable && role === adminRole" mat-button mat-icon-button [disabled]="editingRating === rating || savingRating" (click)="editSaveRating()"><mat-icon [color]="editingRating === rating || savingRating ? null : 'primary'">{{editingRating >= 0 ? 'save' : 'edit'}}</mat-icon></button>
+  <button *ngIf="editable && role === adminRole" mat-button mat-icon-button [disabled]="!rating || rating <= 0" (click)="removeRating()"><mat-icon [color]="!rating || rating <= 0 ? null : 'warn'">clear</mat-icon></button>
+</div>

@@ -1,0 +1,35 @@
+@import '~@angular/material/theming';
+
+.mat-list-base .mat-list-item.mat-3-line,
+.mat-list-base .mat-list-item.mat-2-line {
+  height: auto;
+
+  &:not(:first-child) {
+    padding-top: 8px;
+  }
+
+  .mat-line {
+    &.first-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media ($mat-small) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    ::ng-deep .mat-form-field {
+      width: 100%;
+
+      .mat-form-field-wrapper {
+        padding: 12px 0;
+      }
+    }
+
+    .mat-primary {
+      color: mat-color(mat-palette($mat-deep-purple));
+    }
+  }
+}

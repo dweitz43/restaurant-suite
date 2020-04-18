@@ -1,0 +1,58 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<mat-list *ngIf="user" [style.opacity]="loaded ? 1 : 0.5">
+  <div matSubheader>
+    Restaurants
+    <reviewer-rating-filter (filterRatings)="setRatingsFilter($event)"></reviewer-rating-filter>
+  </div>
+  <mat-list-item *ngFor="let restaurant of filteredRestaurants">
+    <mat-icon matListIcon color="primary" *ngIf="!isHandset">restaurant</mat-icon>
+    <div matLine>{{restaurant.name}}</div>
+    <div matLine>
+      <mat-spinner *ngIf="!reviewsLoaded[restaurant.id]" [diameter]="24"></mat-spinner>
+      <reviewer-rating *ngIf="reviewsLoaded[restaurant.id] && restaurant.averageRating >= 0" [rating]="restaurant.averageRating"></reviewer-rating>
+    </div>
+    <span class="fabs">
+      <button mat-raised-button color="primary"
+              *ngIf="!isHandset && restaurant.reviews?.length"
+              (click)="openDialog(restaurant, false, false, false, true)">INFO</button>
+      <button mat-mini-fab matTooltip="Restaurant Info" color="primary"
+              *ngIf="isHandset && restaurant.reviews?.length"
+              (click)="openDialog(restaurant, false, false, false, true)">
+        <mat-icon>info</mat-icon>
+      </button>
+      <button class="review" mat-raised-button color="primary"
+              *ngIf="!isHandset && user.role !== ownerRole"
+              (click)="openDialog(restaurant, false, true)">REVIEW</button>
+      <button class="review" mat-mini-fab matTooltip="Review Restaurant" color="primary"
+              *ngIf="isHandset && user.role !== ownerRole"
+              (click)="openDialog(restaurant, false, true)">
+        <mat-icon>rate_review</mat-icon>
+      </button>
+      <button class="reply" mat-raised-button color="primary" matBadge="{{restaurant.reviewsAwaitingReply?.length}}" matBadgeColor="warn"
+              *ngIf="!isHandset && restaurant.reviewsAwaitingReply?.length && (user.role === adminRole || user.uid === restaurant.ownerId)"
+              (click)="openDialog(restaurant, false, false, true)">REPLY TO REVIEWS</button>
+      <button class="reply" mat-mini-fab matTooltip="Reply to Restaurant Reviews" color="primary" matBadge="{{restaurant.reviewsAwaitingReply?.length}}" matBadgeColor="warn"
+              *ngIf="isHandset && restaurant.reviewsAwaitingReply?.length && (user.role === adminRole || user.uid === restaurant.ownerId)"
+              (click)="openDialog(restaurant, false, false, true)">
+        <mat-icon>reply</mat-icon>
+      </button>
+      <button mat-raised-button color="accent"
+              *ngIf="!isHandset && [adminRole, ownerRole].includes(user.role)"
+              (click)="openDialog(restaurant, false)">EDIT</button>
+      <button mat-mini-fab matTooltip="Edit Restaurant" color="accent"
+              *ngIf="isHandset && [adminRole, ownerRole].includes(user.role)"
+              (click)="openDialog(restaurant, false)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button color="warn"
+              *ngIf="!isHandset && [adminRole, ownerRole].includes(user.role)"
+              (click)="openDialog(restaurant, true)">DELETE</button>
+      <button mat-mini-fab matTooltip="Delete Restaurant" color="warn"
+              *ngIf="isHandset && [adminRole, ownerRole].includes(user.role)"
+              (click)="openDialog(restaurant, true)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </span>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>

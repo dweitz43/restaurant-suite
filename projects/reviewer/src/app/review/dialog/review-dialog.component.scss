@@ -1,0 +1,12 @@
+.rating-control {
+  ::ng-deep reviewer-rating {
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+}
+
+.mat-form-field {
+  width: -moz-available;
+  width: -webkit-fill-available;
+}

@@ -1,0 +1,82 @@
+@import '~@angular/material/theming';
+
+mat-spinner {
+  position: absolute;
+  right: 50%;
+  margin-top: 24px;
+
+  @media ($mat-small) {
+    right: calc(50% - 50px);
+  }
+}
+
+.mat-subheader {
+  justify-content: space-between;
+
+  @media ($mat-small) {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+
+    reviewer-rating-filter {
+      margin-top: 8px;
+      width: -moz-available;
+      width: -webkit-fill-available;
+    }
+  }
+}
+
+.mat-line {
+  mat-spinner {
+    position: static;
+    right: auto;
+    margin: 0;
+  }
+}
+
+mat-list {
+  ::ng-deep .mat-list-item {
+    @media ($mat-small) {
+      &.mat-2-line {
+        height: 96px;
+      }
+      .mat-list-item-content {
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .mat-list-text {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+
+.fabs {
+  display: flex;
+
+  .mat-mini-fab,
+  .mat-raised-button {
+    margin: 0 12px;
+
+    &.reply {
+      background-color: mat-color(mat-palette($mat-green));
+    }
+
+    &.review {
+      background-color: mat-color(mat-palette($mat-teal));
+    }
+  }
+
+  @media ($mat-small) {
+    width: -moz-available;
+    width: -webkit-fill-available;
+    justify-content: space-between;
+
+    .mat-mini-fab,
+    .mat-raised-button {
+      margin: 0 6px;
+    }
+  }
+}

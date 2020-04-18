@@ -1,0 +1,25 @@
+<mat-spinner *ngIf="!userLoaded"></mat-spinner>
+<mat-list *ngIf="user">
+  <div matSubheader [style.opacity]="userLoaded ? 1 : 0.5">My Info</div>
+  <reviewer-user-list-item
+    [loaded]="userLoaded"
+    [user]="user"
+    [isAdmin]="isAdmin"
+    [isHandset]="isHandset"
+    (buttonClick)="openDialog(user, $event)">
+  </reviewer-user-list-item>
+  <mat-divider></mat-divider>
+  <mat-spinner *ngIf="userLoaded && !usersLoaded"></mat-spinner>
+  <span *ngIf="users">
+    <div matSubheader [style.opacity]="usersLoaded ? 1 : 0.5">
+      All Users
+    </div>
+    <reviewer-user-list-item *ngFor="let user of users"
+      [loaded]="usersLoaded"
+      [user]="user"
+      [isAdmin]="isAdmin"
+      [isHandset]="isHandset"
+      (buttonClick)="openDialog(user, $event)">
+    </reviewer-user-list-item>
+  </span>
+</mat-list>

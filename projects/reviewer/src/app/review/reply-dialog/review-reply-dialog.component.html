@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Reply to Reviews on {{restaurant.name}}</h1>
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let review of restaurant.reviewsAwaitingReply">
+      <div matLine class="first-line">
+        Date of Visit: {{review.date | date:'longDate'}}
+        <reviewer-rating color="accent" [role]="user.role" [rating]="review.rating"></reviewer-rating>
+      </div>
+      <div matLine *ngIf="review.comment"><span class="mat-primary">Visitor comment:</span> {{review.comment}}</div>
+      <div matLine>
+        <mat-form-field appearance="outline">
+          <mat-label>Reply Here</mat-label>
+          <textarea matInput #replyInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
+          <button mat-button matSuffix mat-icon-button [disabled]="sending[review.id] || !replyInput.value || !replyInput.value.trim().length" (click)="send(replyInput.value, review)">
+            <mat-icon [color]="sending[review.id] || !replyInput.value || !replyInput.value.trim().length ? null : 'primary'">send</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="close()">CLOSE</button>
+</mat-dialog-actions>

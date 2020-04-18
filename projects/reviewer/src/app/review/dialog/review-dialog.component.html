@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Review {{restaurant.name}}</h1>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="rating-control">
+      <label>Rating</label>
+      <reviewer-rating
+        color="accent"
+        [editable]="true"
+        [rating]="form.controls.rating.value"
+        (starClick)="form.controls.rating.setValue($event)">
+      </reviewer-rating>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Comment</mat-label>
+      <textarea matInput formControlName="comment" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="close()">CANCEL</button>
+  <button mat-raised-button
+          [disabled]="submitting || form?.invalid"
+          color="primary"
+          (click)="submit()">
+    SUBMIT
+  </button>
+</mat-dialog-actions>

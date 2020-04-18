@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{deleting ? 'Delete' : user ? 'Edit' : 'Add'}} User</h1>
+<mat-dialog-content>
+  <p *ngIf="deleting">Are you sure you want to delete {{user.displayName || user.email}}?</p>
+  <reviewer-profile-form [style.display]="deleting ? 'none' : 'block'" #profileForm [form]="form" [isAdmin]="isAdmin" (enterKeyup)="save(profileForm?.form)"></reviewer-profile-form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="close()">{{deleting ? 'NO' : 'CANCEL'}}</button>
+  <button mat-raised-button
+          [disabled]="saving || !deleting && profileForm.form?.invalid || (user && profileForm && profileForm.form && !profileForm.form.controls.password.value && profileForm.form.controls.email.value === user.email && profileForm.form.controls.role.value === user.role && profileForm.form.controls.displayName.value === user.displayName)"
+          [color]="deleting ? 'warn' : 'primary'"
+          (click)="save(profileForm?.form)">
+    {{deleting ? 'YES' : 'SAVE'}}
+  </button>
+</mat-dialog-actions>

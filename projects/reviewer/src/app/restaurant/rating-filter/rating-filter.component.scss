@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+.mat-chip {
+  cursor: pointer;
+}
+
+@media ($mat-small) {
+  ::ng-deep .mat-chip-list-wrapper {
+    justify-content: space-between;
+    .mat-chip {
+      padding: 3.5px 6px;
+    }
+  }
+}

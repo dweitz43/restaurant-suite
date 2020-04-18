@@ -1,0 +1,27 @@
+<section>
+  <mat-card>
+    <mat-card-header>
+      <mat-icon mat-card-avatar color="primary">account_circle</mat-icon>
+      <mat-card-title>User Authentication</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group #tabs animationDuration="0ms">
+        <mat-tab label="LOG IN">
+          <reviewer-profile-form #logIn (enterKeyup)="authenticate(logIn.form)"></reviewer-profile-form>
+        </mat-tab>
+        <mat-tab label="CREATE ACCOUNT">
+          <reviewer-profile-form #createAccount [extraControls]="[roleControl]" [showRole]="true" (enterKeyup)="authenticate(createAccount.form)"></reviewer-profile-form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button
+              color="accent"
+              type="submit"
+              [disabled]="submitting || (tabs.selectedIndex ? createAccount.form?.invalid : logIn.form?.invalid)"
+              (click)="tabs.selectedIndex ? authenticate(createAccount.form) : authenticate(logIn.form)">
+        SUBMIT
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>

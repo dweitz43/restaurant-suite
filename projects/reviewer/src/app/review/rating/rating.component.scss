@@ -1,0 +1,9 @@
+.stars {
+  display: flex;
+  align-items: center;
+  &.selectable {
+    .mat-icon {
+      cursor: pointer;
+    }
+  }
+}

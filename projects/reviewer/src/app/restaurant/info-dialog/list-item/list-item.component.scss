@@ -1,0 +1,70 @@
+@import '~@angular/material/theming';
+
+.admin.mat-list-item {
+  height: auto;
+  &.recent {
+    padding-top: 8px;
+  }
+}
+
+.mat-list-item:not(.admin) {
+  padding-top: 8px;
+
+  ::ng-deep .mat-list-item-content {
+    .mat-list-text {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.mat-list-item.mat-multi-line,
+.mat-list-item.mat-3-line,
+.mat-list-item.mat-2-line {
+  height: auto;
+  .mat-line {
+    white-space: normal;
+    &.first-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      ::ng-deep reviewer-rating .stars {
+        display: flex;
+        align-items: center;
+      }
+
+      @media ($mat-small) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    ::ng-deep .mat-form-field {
+      width: -moz-available;
+      width: -webkit-fill-available;
+
+      .mat-form-field-suffix {
+        display: flex;
+      }
+    }
+
+    &.delete-review {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 8px;
+      margin-right: -8px;
+    }
+
+    .mat-primary {
+      color: mat-color(mat-palette($mat-deep-purple));
+    }
+  }
+
+  @media ($mat-small) {
+    ::ng-deep .mat-list-item-content {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}

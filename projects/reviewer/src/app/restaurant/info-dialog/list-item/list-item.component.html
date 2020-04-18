@@ -1,0 +1,45 @@
+<mat-list-item [class.admin]="userRole === adminRole">
+  <mat-icon matListIcon color="primary" *ngIf="!isHandset">{{icon}}</mat-icon>
+  <div matLine class="first-line">
+    <span><span class="mat-primary">{{isHandset ? '' : 'Date of Visit: '}}</span> {{review.date | date:isHandset ? 'shortDate' : 'longDate'}}</span>
+    <reviewer-rating
+      [rating]="review.rating"
+      [editable]="userRole === adminRole"
+      [role]="userRole"
+      [review]="review"
+      [restaurantId]="restaurantId">
+    </reviewer-rating>
+  </div>
+  <div matLine *ngIf="review.comment || userRole === adminRole">
+    <span *ngIf="userRole !== adminRole"><span class="mat-primary">Visitor comment:</span> {{review.comment}}</span>
+    <mat-form-field *ngIf="userRole === adminRole" appearance="outline">
+      <mat-label>Visitor comment</mat-label>
+      <input matInput [(ngModel)]="review.comment" [disabled]="!editingComment && editingComment !== ''" (keyup.enter)="(!editingComment || review.comment !== editingComment) && (editingComment !== '' || (review.comment && review.comment !== '')) && editSaveComment()">
+      <button mat-button mat-icon-button matSuffix (click)="editSaveComment()"
+              [disabled]="savingComment || ((editingComment && review.comment === editingComment) || (editingComment === '' && (!review.comment || review.comment === '')))">
+        <mat-icon [color]="savingComment || (editingComment === '' && (!review.comment || review.comment === '')) || (editingComment && review.comment === editingComment) ? null : 'primary'">
+          {{editingComment || editingComment === '' ? 'save' : 'edit'}}
+        </mat-icon>
+      </button>
+      <button mat-button mat-icon-button matSuffix [disabled]="!review.comment || review.comment == '' || editingComment === ''" (click)="removeComment()"><mat-icon [color]="!review.comment || review.comment === '' || editingComment === '' ? null : 'warn'">clear</mat-icon></button>
+    </mat-form-field>
+  </div>
+  <div matLine *ngIf="review.reply || userRole === adminRole">
+    <span *ngIf="userRole !== adminRole"><span class="mat-primary">Owner reply:</span> {{review.reply}}</span>
+    <mat-form-field *ngIf="userRole === adminRole" appearance="outline">
+      <mat-label>Owner reply</mat-label>
+      <input matInput [(ngModel)]="review.reply" [disabled]="!editingReply && editingReply !== ''" (keyup.enter)="(!editingReply || review.reply !== editingReply) && (editingReply !== '' || (review.reply && review.reply !== '')) && editSaveReply()">
+      <button mat-button mat-icon-button matSuffix (click)="editSaveReply()"
+              [disabled]="savingReply || ((editingReply && review.reply === editingReply) || (editingReply === '' && (!review.reply || review.reply === '')))">
+        <mat-icon [color]="savingReply || (editingReply === '' && (!review.reply || review.reply === '')) || (editingReply && review.reply === editingReply) ? null : 'primary'">
+          {{editingReply || editingReply === '' ? 'save' : 'edit'}}
+        </mat-icon>
+      </button>
+      <button mat-button mat-icon-button matSuffix [disabled]="!review.reply || review.reply === '' || editingReply === ''" (click)="removeReply()"><mat-icon [color]="!review.reply || review.reply === '' || editingReply === '' ? null : 'warn'">clear</mat-icon></button>
+    </mat-form-field>
+  </div>
+  <div matLine *ngIf="userRole === adminRole" class="delete-review">
+    <button mat-button mat-raised-button color="warn" [disabled]="deleting" (click)="deleteReview()">DELETE REVIEW</button>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list-item>

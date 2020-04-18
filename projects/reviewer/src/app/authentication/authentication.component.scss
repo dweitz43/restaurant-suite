@@ -1,0 +1,47 @@
+@import '~@angular/material/theming';
+
+section {
+  display: flex;
+  width: 50vw;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+
+  ::ng-deep mat-card {
+    height: 295px;
+    display: flex;
+    flex-direction: column;
+    mat-card-content {
+      margin-top: 8px;
+      flex-grow: 1;
+
+      mat-tab-group {
+        .mat-tab-body-wrapper {
+          overflow: unset;
+        }
+        mat-tab-body {
+          padding-top: 12px;
+
+          &.mat-tab-body-active {
+            overflow: visible;
+
+            .mat-tab-body-content {
+              overflow: visible;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media ($mat-small) {
+    width: -moz-available;
+    width: -webkit-fill-available;
+
+    mat-card {
+      width: -moz-available;
+      width: -webkit-fill-available;
+    }
+  }
+}

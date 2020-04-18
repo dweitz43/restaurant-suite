@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>
+  {{restaurant.name}}
+  <reviewer-rating [rating]="restaurant.averageRating" color="primary"></reviewer-rating>
+</h1>
+<mat-dialog-content>
+  <h3>Restaurant Reviews</h3>
+  <mat-divider></mat-divider>
+  <mat-list *ngIf="recentReviews.length">
+    <div matSubheader>Highest Rated</div>
+    <reviewer-restaurant-info-dialog-list-item [userRole]="user.role" [review]="highestRated" [restaurantId]="restaurant.id" icon="thumb_up"></reviewer-restaurant-info-dialog-list-item>
+    <div matSubheader>Lowest Rated</div>
+    <reviewer-restaurant-info-dialog-list-item [userRole]="user.role" [review]="lowestRated" [restaurantId]="restaurant.id" icon="thumb_down"></reviewer-restaurant-info-dialog-list-item>
+    <div matSubheader>Recent</div>
+    <reviewer-restaurant-info-dialog-list-item *ngFor="let review of recentReviews" class="recent" [userRole]="user.role" [review]="review" [restaurantId]="restaurant.id"></reviewer-restaurant-info-dialog-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="close()">CLOSE</button>
+</mat-dialog-actions>

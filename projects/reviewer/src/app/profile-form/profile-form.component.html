@@ -1,0 +1,24 @@
+<form [formGroup]="form" *ngIf="form">
+  <mat-form-field>
+    <mat-label>Email Address</mat-label>
+    <input type="email" matInput formControlName="email" (keyup.enter)="keyup()">
+    <mat-error *ngIf="form.controls.email.invalid">{{form.controls.email.hasError('required') ? 'Email address is required.' : 'Invalid email address.'}}</mat-error>
+  </mat-form-field>
+  <mat-form-field *ngIf="form.controls.password">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password" (keyup.enter)="keyup()">
+    <mat-error *ngIf="form.controls.password.invalid">Password is required.</mat-error>
+  </mat-form-field>
+  <div class="role-control" *ngIf="form.controls.role && (isAdmin || showRole)">
+    <label>Role</label>
+    <mat-radio-group color="primary" formControlName="role" (change)="form.controls.role.setValue($event.value)">
+      <mat-radio-button value="regular" [checked]="form.controls.role.value === 'regular'">Regular</mat-radio-button>
+      <mat-radio-button value="owner" [checked]="form.controls.role.value === 'owner'">Owner</mat-radio-button>
+      <mat-radio-button *ngIf="isAdmin" value="admin" [checked]="form.controls.role.value === 'admin'">Admin</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <mat-form-field *ngIf="form.controls.displayName">
+    <mat-label>Display Name</mat-label>
+    <input type="text" matInput formControlName="displayName" (keyup.enter)="keyup()">
+  </mat-form-field>
+</form>
