@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "restaurant-suite-dweitz43": {
+      "hosting": {
+        "reviewer": [
+          "restaurant-suite-dweitz43"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "restaurant-suite-dweitz43"
+  }
+}
